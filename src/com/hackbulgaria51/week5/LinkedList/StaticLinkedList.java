@@ -1,9 +1,13 @@
 package com.hackbulgaria51.week5.LinkedList;
 
 public class StaticLinkedList {
-	public static LinkedList<Integer> reverse(LinkedList<Integer> l) {
-		// Reverses the list
-		return null;
+	public static LinkedList<Integer> reverse(LinkedList<Integer> l)
+			throws IllegalAccessException {
+		LinkedList<Integer> result = new LinkedList<Integer>();
+		for (int i = l.size(); i > 0; i--) {
+			result.add(l.get(i));
+		}
+		return result;
 	}
 
 	public static LinkedList<Integer> sort(LinkedList<Integer> l) {
@@ -13,7 +17,9 @@ public class StaticLinkedList {
 
 	public static LinkedList<Integer> merge(LinkedList<Integer> a,
 			LinkedList<Integer> b) {
-		// Merges a and b into one sorted list
-		return null;
+		for (int i = 0; i < b.size(); i++) {
+			a.add(b.get(i));
+		}
+		return a;
 	}
 }

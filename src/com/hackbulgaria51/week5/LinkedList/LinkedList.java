@@ -1,8 +1,5 @@
 package com.hackbulgaria51.week5.LinkedList;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LinkedList<T> {
 	private Node<T> head;
 	private Node<T> tail;
@@ -22,6 +19,7 @@ public class LinkedList<T> {
 		} else {
 			add(data);
 		}
+		size++;
 	}
 
 	public T getFirst() {
@@ -68,10 +66,10 @@ public class LinkedList<T> {
 		return head == null && tail == null;
 	}
 
-	private Node<T> getNode(int index) {
+	public Node<T> getNode(int index) {
 		int counter = 0;
 		Node<T> temp = head;
-		while (temp != null) {
+		while (temp.getNext() != null) {
 			if (counter == index) {
 				break;
 			}
@@ -82,7 +80,7 @@ public class LinkedList<T> {
 	}
 
 	public T get(int index) {
-		return getNode(index - 1).getData();
+		return getNode(index).getData();
 	}
 
 	public void set(int index, T el) {
@@ -107,7 +105,7 @@ public class LinkedList<T> {
 			} else {
 				Node<T> n = getNode(index - 1);
 				n.setNext(null);
-				n = tail;
+				tail = n;
 			}
 			size--;
 		}
