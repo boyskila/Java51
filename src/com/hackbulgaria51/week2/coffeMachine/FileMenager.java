@@ -1,0 +1,28 @@
+package com.hackbulgaria51.week2.coffeMachine;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.List;
+
+public class FileMenager {
+    @SuppressWarnings("resource")
+    public static void serialize(List<Coffe> coffes, String fileName) throws IOException {
+        try (FileOutputStream fileOut = new FileOutputStream(fileName)) {
+            ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+            objOut.writeObject(coffes);
+        }
+    }
+
+    @SuppressWarnings({ "resource" })
+    public static List<Coffe> deserialize(String fileName) throws IOException, ClassNotFoundException {
+        try (FileInputStream fileIn = new FileInputStream(fileName)) {
+            ObjectInputStream objIn = new ObjectInputStream(fileIn);
+            @SuppressWarnings("unchecked")
+            List<Coffe> coffe = (List<Coffe>) objIn.readObject();
+            return coffe;
+        }
+    }
+}
