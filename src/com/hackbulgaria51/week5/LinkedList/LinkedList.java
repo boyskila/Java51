@@ -73,7 +73,6 @@ public class LinkedList<T> {
 				n = tail;
 			}
 			size--;
-		} else {
 		}
 	}
 
