@@ -1,5 +1,8 @@
 package com.hackbulgaria51.week5.LinkedList;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LinkedList<T> {
 	private Node<T> head;
 	private Node<T> tail;
@@ -11,15 +14,49 @@ public class LinkedList<T> {
 		size = 0;
 	}
 
+	public void addFirst(T data) {
+		if (!isEmpty()) {
+			Node<T> newNode = new Node<>(data);
+			newNode.setNext(head);
+			head = newNode;
+		} else {
+			add(data);
+		}
+	}
+
+	public T getFirst() {
+		return head.getData();
+	}
+
+	public T getLast() {
+		return tail.getData();
+	}
+
+	public int getElementIndex(T data) {
+		int counter = 0;
+		Node<T> temp = head;
+		while (temp.getNext() != null) {
+			if (temp.getData() == data) {
+				return counter;
+			}
+			temp = temp.getNext();
+			counter++;
+		}
+		return -1;
+	}
+
+	public boolean contains(T data) {
+		return getElementIndex(data) != -1;
+	}
+
 	public void add(T data) {
 		Node<T> element = new Node<>(data);
 		if (isEmpty()) {
 			head = element;
-			tail = element;
 		} else {
 			tail.setNext(element);
-			tail = element;
 		}
+		tail = element;
 		size++;
 	}
 
@@ -34,14 +71,14 @@ public class LinkedList<T> {
 	private Node<T> getNode(int index) {
 		int counter = 0;
 		Node<T> temp = head;
-		while (true) {
+		while (temp != null) {
 			if (counter == index) {
-				return temp;
-			} else {
-				temp = temp.getNext();
-				counter++;
+				break;
 			}
+			temp = temp.getNext();
+			counter++;
 		}
+		return temp;
 	}
 
 	public T get(int index) {
@@ -89,7 +126,6 @@ public class LinkedList<T> {
 
 	public void removeAll() {
 		head = null;
-		tail = null;
 		size = 0;
 	}
 
