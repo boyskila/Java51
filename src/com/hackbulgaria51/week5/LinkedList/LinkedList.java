@@ -1,5 +1,7 @@
 package com.hackbulgaria51.week5.LinkedList;
 
+import java.util.Collection;
+
 public class LinkedList<T> {
 	private Node<T> head;
 	private Node<T> tail;
@@ -9,6 +11,9 @@ public class LinkedList<T> {
 		head = null;
 		tail = null;
 		size = 0;
+	}
+	public LinkedList(Collection<T> coll){
+		this.addAll(coll);
 	}
 
 	public void addFirst(T data) {
@@ -108,6 +113,12 @@ public class LinkedList<T> {
 				tail = n;
 			}
 			size--;
+		}
+	}
+
+	public void addAll(Collection<T> c) {
+		for (T t : c) {
+			this.add(t);
 		}
 	}
 

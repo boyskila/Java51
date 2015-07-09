@@ -32,6 +32,8 @@ public class LinkedListTest {
 		System.out.println(StaticLinkedList.reverse(l));
 		//System.out.println(StaticLinkedList.sort(l));
 		System.out.println(StaticLinkedList.merge(l, secondL));
+		
+		System.out.println(StaticLinkedList.sort(l));
 
 		// System.out.println("Size of the LinkedList " + l.size());
 		// l.insert(2, 5);

@@ -1,5 +1,8 @@
 package com.hackbulgaria51.week5.LinkedList;
 
+import java.util.Collections;
+import java.util.Vector;
+
 public class StaticLinkedList {
 	public static LinkedList<Integer> reverse(LinkedList<Integer> l)
 			throws IllegalAccessException {
@@ -11,8 +14,12 @@ public class StaticLinkedList {
 	}
 
 	public static LinkedList<Integer> sort(LinkedList<Integer> l) {
-		// Sorts the list
-		return null;
+		Vector<Integer> v = new Vector<>();
+		for (int i = 0; i < l.size(); i++) {
+			v.add(l.get(i));
+		}
+		Collections.sort(v);
+		return new LinkedList<Integer>(v);
 	}
 
 	public static LinkedList<Integer> merge(LinkedList<Integer> a,
