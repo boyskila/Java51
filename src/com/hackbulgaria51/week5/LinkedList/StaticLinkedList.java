@@ -1,6 +1,5 @@
 package com.hackbulgaria51.week5.LinkedList;
 
-import java.util.Collections;
 import java.util.Vector;
 
 public class StaticLinkedList {
@@ -18,7 +17,21 @@ public class StaticLinkedList {
 		for (int i = 0; i < l.size(); i++) {
 			v.add(l.get(i));
 		}
-		Collections.sort(v);
+		int minIndex;
+		int temp;
+		for (int i = 0; i < v.size() - 1; i++) {
+			minIndex = i;
+			for (int j = i + 1; j < v.size(); j++) {
+				if (v.get(j) < v.get(minIndex)) {
+					minIndex = j;
+				}
+			}
+			if (minIndex != i) {
+				temp = v.get(i);
+				v.set(i, v.get(minIndex));
+				v.set(minIndex, temp);
+			}
+		}
 		return new LinkedList<Integer>(v);
 	}
 
