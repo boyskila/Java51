@@ -35,9 +35,8 @@ public class WordCounter {
 		int counter = 0;
 		int a = 0;
 		while (row > 0 && a != needle.length()) {
-			if (array[col][row--] != needle.charAt(a++)) {
+			if (array[col][row--] != needle.charAt(a++))
 				break;
-			}
 			counter++;
 		}
 		return counter == needle.length() ? 1 : 0;
