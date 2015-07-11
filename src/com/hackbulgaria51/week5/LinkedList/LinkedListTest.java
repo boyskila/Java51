@@ -11,11 +11,9 @@ public class LinkedListTest {
 			l.add(i);
 		}
 		System.out.println(l);
-		//System.out.println(l.size());
-		//int el = l.getElementIndex(19);
 		l.removeAll();
 		System.out.println(l);
-		//System.out.println(el);
+		// System.out.println(el);
 		// l.addFirst(100);
 		// System.out.println(l);
 		// l.remove(l.size()-1);
