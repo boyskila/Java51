@@ -38,7 +38,7 @@ public class LinkedList<T> {
 	public int getElementIndex(T data) {
 		int counter = 0;
 		Node<T> temp = head;
-		while (temp.getNext() != null) {
+		while (temp != null) {
 			if (temp.getData() == data) {
 				return counter;
 			}
@@ -135,6 +135,7 @@ public class LinkedList<T> {
 
 	public void removeAll() {
 		head = null;
+		tail = null;
 		size = 0;
 	}
 

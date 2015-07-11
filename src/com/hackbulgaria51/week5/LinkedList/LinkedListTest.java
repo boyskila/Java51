@@ -2,13 +2,20 @@ package com.hackbulgaria51.week5.LinkedList;
 
 import java.util.Scanner;
 
+import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
+
 public class LinkedListTest {
 	public static void main(String[] args) throws IllegalAccessException {
-		// LinkedList<Integer> l = new LinkedList<>();
-		// for (int i = 10; i < 20; i++) {
-		// l.add(i);
-		// }
-		// System.out.println(l);
+		LinkedList<Integer> l = new LinkedList<>();
+		for (int i = 10; i < 20; i++) {
+			l.add(i);
+		}
+		System.out.println(l);
+		//System.out.println(l.size());
+		//int el = l.getElementIndex(19);
+		l.removeAll();
+		System.out.println(l);
+		//System.out.println(el);
 		// l.addFirst(100);
 		// System.out.println(l);
 		// l.remove(l.size()-1);
@@ -16,21 +23,21 @@ public class LinkedListTest {
 		// System.out.println(l.getLast());
 		// System.out.println(StaticLinkedList.reverse(l));
 
-		LinkedList<Integer> l = new LinkedList<>();
-		LinkedList<Integer> secondL = new LinkedList<>();
-		Scanner scanner = new Scanner(System.in);
-		int n = scanner.nextInt();
-		for (int i = 0; i < n; i++) {
-			l.add(scanner.nextInt());
-		}
-		n = scanner.nextInt();
-
-		for (int i = 0; i < n; i++) {
-			secondL.add(scanner.nextInt());
-		}
-		System.out.println(StaticLinkedList.reverse(l));
-		System.out.println(StaticLinkedList.merge(l, secondL));
-		System.out.println(StaticLinkedList.sort(l));
+		// LinkedList<Integer> l = new LinkedList<>();
+		// LinkedList<Integer> secondL = new LinkedList<>();
+		// Scanner scanner = new Scanner(System.in);
+		// int n = scanner.nextInt();
+		// for (int i = 0; i < n; i++) {
+		// l.add(scanner.nextInt());
+		// }
+		// n = scanner.nextInt();
+		//
+		// for (int i = 0; i < n; i++) {
+		// secondL.add(scanner.nextInt());
+		// }
+		// System.out.println(StaticLinkedList.reverse(l));
+		// System.out.println(StaticLinkedList.merge(l, secondL));
+		// System.out.println(StaticLinkedList.sort(l));
 		// System.out.println("Size of the LinkedList " + l.size());
 		// l.insert(2, 5);
 		// System.out.println("insert 5 at index 2 " + l);
