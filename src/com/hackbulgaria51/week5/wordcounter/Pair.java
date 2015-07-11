@@ -1,4 +1,4 @@
-package com.hackbulgaria51.week5.kamensearch;
+package com.hackbulgaria51.week5.wordcounter;
 
 public class Pair {
 	public int row;

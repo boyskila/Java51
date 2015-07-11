@@ -1,4 +1,4 @@
-package com.hackbulgaria51.week5.kamensearch;
+package com.hackbulgaria51.week5.wordcounter;
 
 import java.util.ArrayList;
 import java.util.List;
