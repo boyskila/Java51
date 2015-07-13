@@ -1,5 +1,6 @@
 package com.hackbulgaria51.week5.LinkedList;
 
+import java.lang.reflect.Array;
 import java.util.Collection;
 
 public class LinkedList<T> {
@@ -12,8 +13,15 @@ public class LinkedList<T> {
 		tail = null;
 		size = 0;
 	}
-	public LinkedList(Collection<T> coll){
+
+	public LinkedList(Collection<T> coll) {
 		this.addAll(coll);
+	}
+
+	public LinkedList(LinkedList<T> linkL) {
+		for (int i = 0; i < linkL.size; i++) {
+			this.add(linkL.get(i));
+		}
 	}
 
 	public void addFirst(T data) {
@@ -137,6 +145,48 @@ public class LinkedList<T> {
 		head = null;
 		tail = null;
 		size = 0;
+	}
+
+	@SuppressWarnings("unchecked")
+	public T[] toArray(T[] type) {
+		T[] array = (T[]) Array.newInstance(type.getClass().getComponentType(),
+				size);
+		for (int i = 0; i < size; i++) {
+			array[i] = get(i);
+		}
+		return (T[]) array;
+	}
+
+	public void addArray(T[] arr) {
+		for (T t : arr) {
+			add(t);
+		}
+	}
+
+	public void insertListAfter(int index, LinkedList<T> l) {
+		LinkedList<T> ll = new LinkedList<>(l);
+		if (index > 0) {
+			Node<T> tempNode = getNode(index);
+			ll.tail.setNext(tempNode.getNext());
+			tempNode.setNext(ll.head);
+		} else {
+			ll.tail.setNext(head.getNext());
+			head.setNext(ll.head);
+		}
+		size += ll.size;
+	}
+
+	public void insertListBefore(int index, LinkedList<T> l) {
+		LinkedList<T> ll = new LinkedList<>(l);
+		if (index > 0) {
+			Node<T> tempNode = getNode(index - 1);
+			ll.tail.setNext(tempNode.getNext());
+			tempNode.setNext(l.head);
+		} else {
+			ll.tail.setNext(head);
+			head = ll.head;
+		}
+		size += ll.size;
 	}
 
 	@Override

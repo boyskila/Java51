@@ -2,17 +2,52 @@ package com.hackbulgaria51.week5.LinkedList;
 
 import java.util.Scanner;
 
-import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
-
 public class LinkedListTest {
 	public static void main(String[] args) throws IllegalAccessException {
-		LinkedList<Integer> l = new LinkedList<>();
-		for (int i = 10; i < 20; i++) {
-			l.add(i);
+
+		Scanner scanner = new Scanner(System.in);
+		LinkedList<Integer> list1 = new LinkedList<>();
+		LinkedList<Integer> list2 = new LinkedList<>();
+		Integer[] arr;
+		int n = scanner.nextInt();
+		for (int i = 0; i < n; i++) {
+			list1.add(scanner.nextInt());
 		}
-		System.out.println(l);
-		l.removeAll();
-		System.out.println(l);
+		n = scanner.nextInt();
+		arr = new Integer[n];
+		for (int i = 0; i < n; i++) {
+			arr[i] = scanner.nextInt();
+		}
+		list2.addArray(arr);
+		System.out.println(list2);
+		list1.insertListBefore(0, list2);
+		System.out.println(list1);
+		list1.insertListAfter(0, list2);
+
+		System.out.println(list1);
+		// LinkedList<Integer> l = new LinkedList<>();
+		// for (int i = 10; i < 20; i++) {
+		// l.add(i);
+		// }
+		// System.out.println(l);
+		// LinkedList<Integer> ll = new LinkedList<Integer>();
+		// for (int i = 1; i < 10; i++) {
+		// ll.add(i * 5);
+		// }
+
+		Integer[] array = list1.toArray(new Integer[list1.size()]);
+		System.out.println("LinkedList is already converted to array");
+		for (int i = 0; i < array.length; i++) {
+			System.out.print(array[i] + " ");
+		}
+
+		// System.out.println(ll);
+		// l.insertListBefore(0, ll);
+		// System.out.println(l);
+
+		// System.out.println(l);
+		// l.removeAll();
+		// System.out.println(l);
 		// System.out.println(el);
 		// l.addFirst(100);
 		// System.out.println(l);
