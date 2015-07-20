@@ -1,4 +1,4 @@
-package com.hackbulgaria51.week5.labirinth;
+package com.hackbulgaria51.week6.labirinth;
 
 public class MoveLeft extends Movement {
 	public MoveLeft(Player coordinates) {
