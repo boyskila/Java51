@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class WeaponSack implements Iterable<Weapon> {
+public class WeaponSack {
 	private List<Weapon> weapons;
 
 	public WeaponSack() {
@@ -22,11 +22,5 @@ public class WeaponSack implements Iterable<Weapon> {
 			}
 		}
 		return new Axe();
-	}
-
-	@Override
-	public Iterator<Weapon> iterator() {
-		Iterator<Weapon> it = weapons.iterator();
-		return it;
 	}
 }
