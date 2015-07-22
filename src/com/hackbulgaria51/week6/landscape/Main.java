@@ -5,8 +5,16 @@ public class Main {
 		LandScape landscape = new LandScape();
 		landscape.addTile(new Land());
 		landscape.addTile(new Water());
+		landscape.addTile(new Forest());
+		landscape.addTile(new Forest());
+		landscape.addTile(new Mountain());
+		landscape.addTile(new Mountain());
+		landscape.addTile(new Mountain());
 		landscape.addTile(new Mountain());
 		landscape.addTile(new Forest());
+		landscape.addTile(new Forest());
+		landscape.addTile(new Water());
+		landscape.addTile(new Land());
 		System.out.println(landscape.renderAll()); // --~~/\!!
 	}
 }

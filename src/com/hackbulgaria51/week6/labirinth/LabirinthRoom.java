@@ -1,5 +1,4 @@
 package com.hackbulgaria51.week6.labirinth;
-
 import java.util.Scanner;
 
 public class LabirinthRoom {

@@ -23,10 +23,10 @@ public class Labirinth {
 		}
 	}
 
-	public void message(int health) {
+	public void message() {
 		String winnerMessage = "Congratulations! You have escaped the labirinth.\nHere are some aliens: (-(-(-_-)-)-)";
 		String loserMessage = "Not enough power to finish the labirinth";
-		String finalMessage = health > 0 ? winnerMessage : loserMessage;
+		String finalMessage = player.health >= 0 ? winnerMessage : loserMessage;
 		System.out.println(finalMessage);
 	}
 
@@ -73,6 +73,6 @@ public class Labirinth {
 			}
 		}
 		printLabirinth();
-		message(health);
+		message();
 	}
 }
