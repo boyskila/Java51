@@ -7,35 +7,33 @@ public class Brackets {
 		return a == '(' || a == '{' || a == '[';
 	}
 
-	public static boolean get(char bracketForCheck, char closingBracket,
-			char openBracket, char c) {
-		if (c == closingBracket) {
-			return bracketForCheck == openBracket;
-		}
-		return false;
+	public static boolean isPairOfBrackets(char openBracket, char closingBracket) {
+		return openBracket == '(' && closingBracket == ')'
+				|| openBracket == '{' && closingBracket == '}'
+				|| openBracket == '[' && closingBracket == ']';
+	}
+
+	public static boolean areStacksEmpty(Stack<Character> s1,
+			Stack<Character> s2) {
+		return s1.isEmpty() && s2.isEmpty();
 	}
 
 	public static boolean areCorrect(String str) {
-		Stack<Character> stack = new Stack<>();
+		Stack<Character> openBracketsStack = new Stack<>();
+		Stack<Character> closingBracketsStack = new Stack<>();
 		for (int i = 0; i < str.length(); i++) {
 			char bracket = str.charAt(i);
 			if (isOpenBracket(bracket)) {
-				stack.push(bracket);
-			}
-			if (!stack.isEmpty() && !isOpenBracket(bracket)) {
-				char bracketForCheck = stack.peek();
-				boolean isRoundBracket = get(bracketForCheck, ')', '(', bracket);
-				boolean isCurlyBracket = get(bracketForCheck, '}', '{', bracket);
-				boolean isSquareBracket = get(bracketForCheck, ']', '[',
-						bracket);
-				if (isRoundBracket || isCurlyBracket || isSquareBracket) {
-					stack.pop();
-				} else {
+				openBracketsStack.push(bracket);
+			} else {
+				closingBracketsStack.push(bracket);
+				if (!areStacksEmpty(openBracketsStack, closingBracketsStack)
+						&& !isPairOfBrackets(openBracketsStack.pop(),
+								closingBracketsStack.pop())) {
 					return false;
 				}
 			}
-
 		}
-		return stack.empty() ;
+		return openBracketsStack.isEmpty() && closingBracketsStack.isEmpty();
 	}
 }
