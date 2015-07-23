@@ -15,7 +15,7 @@ public class Brackets {
 
 	public static boolean areStacksEmpty(Stack<Character> s1,
 			Stack<Character> s2) {
-		return s1.isEmpty() && s2.isEmpty();
+		return s1.isEmpty() || s2.isEmpty();
 	}
 
 	public static boolean areCorrect(String str) {
