@@ -7,5 +7,6 @@ public class BracketsTest {
 		Scanner scanner = new Scanner(System.in);
 		String brackets = scanner.next();
 		System.out.println(Brackets.areCorrect(brackets));
+		scanner.close();
 	}
 }
