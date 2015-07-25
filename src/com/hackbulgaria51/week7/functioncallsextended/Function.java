@@ -72,7 +72,7 @@ public class Function {
 						result = f.result;
 						break;
 					} else {
-						// pass result from first choosen function
+						// pass result from the first choosen function
 						currentFunctionArgument = f.result;
 					}
 				}
