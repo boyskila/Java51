@@ -20,7 +20,7 @@ public class Function {
 		func = Parser.functionsCollection;
 		this.argument = argument;
 		function = expression.replaceAll("x", argument + "").split("=");
-		String[] n = this.function[0].split(" ");
+		String[] n = function[0].split(" ");
 		name = n[0];
 	}
 
@@ -43,11 +43,9 @@ public class Function {
 		for (int i = 1; i < functionBody.length; i++) {
 			String index = functionBody[i];
 			if (!index.equals("+") && !index.equals("-")) {
-				int index1 = calculateInnerFunction(index);
-				result = index1;
+				result = calculateInnerFunction(index);
 			} else {
-				int nextIndex = calculateInnerFunction(functionBody[i + 1]);
-				int number = nextIndex;
+				int number = calculateInnerFunction(functionBody[i + 1]);
 				result = index.equals("+") ? result + number : result - number;
 				i++;
 			}
@@ -63,17 +61,17 @@ public class Function {
 		while (!stack.isEmpty()) {
 			String functionName = stack.pop();
 			for (int i = 0; i < size; i++) {
-				Function f = func.get(i);
-				if (f.name.contains(functionName)) {
+				Function currentFunction = func.get(i);
+				if (currentFunction.name.contains(functionName)) {
 					if (counter > 0) {
-						f.argument = currentFunctionArgument;
+						currentFunction.argument = currentFunctionArgument;
 						// calculate function everytime with the new argument
-						currentFunctionArgument = f.calculateFunction();
-						result = f.result;
+						currentFunctionArgument = currentFunction.calculateFunction();
+						result = currentFunction.result;
 						break;
 					} else {
 						// pass result from the first choosen function
-						currentFunctionArgument = f.result;
+						currentFunctionArgument = currentFunction.result;
 					}
 				}
 			}
