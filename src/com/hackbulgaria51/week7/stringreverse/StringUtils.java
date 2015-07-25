@@ -5,7 +5,7 @@ import java.util.Stack;
 public class StringUtils {
 	public static String reverseStringWithStack(String s) {
 		Stack<Character> stack = new Stack<>();
-		int len = s.length() - 1;
+		int len = s.length();
 		for (int i = 0; i < len; i++) {
 			stack.push(s.charAt(i));
 		}
