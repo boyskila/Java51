@@ -1,61 +1,83 @@
 package com.hackbulgaria51.week7.functioncallsextended;
 
+import java.util.Stack;
 import java.util.Vector;
 
 public class Function {
-	public String name;
-	public String[] function;
-	public String[] tempFunction;
-	public int argument;
-	public int result;
+	private String name;
+	private String[] function;
+	private String[] tempFunction;
+	private int argument;
+	private int result;
 	private Vector<Function> func;
-	private String str;
 
-	Function(String str, int argument, Vector<Function> func) {
-		tempFunction = str.split("=");
-		this.str = str;
-		this.func = func;
+	Function() {
+		func = Parser.functionsCollection;
+	}
+
+	Function(String expression, int argument) {
+		tempFunction = expression.split("=");
+		func = Parser.functionsCollection;
 		this.argument = argument;
-		function = str.replaceAll("x", argument + "").split("=");
+		function = expression.replaceAll("x", argument + "").split("=");
 		String[] n = this.function[0].split(" ");
 		name = n[0];
 	}
 
-	public String calculateInnerFunction(String str) {
+	private int calculateInnerFunction(String str) {
 		for (Function function : func) {
 			if (str.contains(function.name)) {
 				str = str.replaceAll("\\D+", "");
-				function.function = function.str.replaceAll("x", str + "")
-						.split("=");
 				function.argument = Integer.parseInt(str);
 				function.calculateFunction();
-				str = function.result + "";
+				return function.result;
 			}
 		}
-		return str;
+		return Integer.parseInt(str);
 	}
 
 	public int calculateFunction() {
 		function = tempFunction;
-		String[] s = function[1].replaceAll("x", argument + "").split(" ");
-
-		result = 0;
-		for (int i = 1; i < s.length; i++) {
-			String str = s[i];
-			str = calculateInnerFunction(str);
-			if (!str.equals("+") && !str.equals("-") && i < 2) {
-				result = Integer.parseInt(str);
+		String[] functionBody = function[1].replaceAll("x", argument + "")
+				.split(" ");
+		for (int i = 1; i < functionBody.length; i++) {
+			String index = functionBody[i];
+			if (!index.equals("+") && !index.equals("-")) {
+				int index1 = calculateInnerFunction(index);
+				result = index1;
 			} else {
-				if (str.equals("+")) {
-					String s1 = calculateInnerFunction(s[i + 1]);
-					result += Integer.parseInt(s1);
-					i++;
-				} else {
-					String s2 = calculateInnerFunction(s[i + 1]);
-					result -= Integer.parseInt(s2);
-					i++;
+				int nextIndex = calculateInnerFunction(functionBody[i + 1]);
+				int number = nextIndex;
+				result = index.equals("+") ? result + number : result - number;
+				i++;
+			}
+		}
+		return result;
+	}
+
+	public int call(Stack<String> stack) {
+		int size = func.size();
+		int currentFunctionArgument = 0;
+		int result = 0;
+		int counter = 0;
+		while (!stack.isEmpty()) {
+			String str = stack.pop();
+			for (int i = 0; i < size; i++) {
+				Function f = func.get(i);
+				if (f.name.contains(str)) {
+					if (counter > 0) {
+						f.argument = currentFunctionArgument;
+						// calculate function everytime with the new argument
+						currentFunctionArgument = f.calculateFunction();
+						result = f.result;
+						break;
+					} else {
+						// pass result from first choosen function
+						currentFunctionArgument = f.result;
+					}
 				}
 			}
+			counter++;
 		}
 		return result;
 	}
