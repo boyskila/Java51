@@ -61,10 +61,10 @@ public class Function {
 		int result = 0;
 		int counter = 0;
 		while (!stack.isEmpty()) {
-			String str = stack.pop();
+			String functionName = stack.pop();
 			for (int i = 0; i < size; i++) {
 				Function f = func.get(i);
-				if (f.name.contains(str)) {
+				if (f.name.contains(functionName)) {
 					if (counter > 0) {
 						f.argument = currentFunctionArgument;
 						// calculate function everytime with the new argument
