@@ -8,15 +8,15 @@ public class Function {
 	private String[] function;
 	private int argument;
 	private int result;
-	private Vector<Function> func;
+	private Vector<Function> allFunctions;
 
 	Function() {
-		func = Parser.functionsCollection;
+		allFunctions = Parser.functionsCollection;
 	}
 
 	Function(String expression, int argument) {
 		// get all created functions
-		func = Parser.functionsCollection;
+		allFunctions = Parser.functionsCollection;
 		this.argument = argument;
 		function = expression.split("=");
 		// get function name
@@ -25,7 +25,7 @@ public class Function {
 	}
 
 	private int calculateInnerFunction(String argument) {
-		for (Function function : func) {
+		for (Function function : allFunctions) {
 			// if "argument" is a function than calculate it using
 			// calculateFunction() method
 			if (argument.contains(function.name)) {
@@ -60,14 +60,14 @@ public class Function {
 	}
 
 	public int call(Stack<String> stack) {
-		int size = func.size();
+		int size = allFunctions.size();
 		int currentFunctionArgument = 0;
-		int result = 0;
 		int counter = 0;
+		Function currentFunction = null;
 		while (!stack.isEmpty()) {
 			String functionName = stack.pop();
 			for (int i = 0; i < size; i++) {
-				Function currentFunction = func.get(i);
+				currentFunction = allFunctions.get(i);
 				// trying to find the function
 				if (currentFunction.name.contains(functionName)) {
 					if (counter > 0) {
@@ -75,7 +75,6 @@ public class Function {
 						// calculate function everytime with the newest argument
 						currentFunctionArgument = currentFunction
 								.calculateFunction();
-						result = currentFunction.result;
 						break;
 					} else {
 						/*
@@ -90,6 +89,6 @@ public class Function {
 			}
 			counter++;
 		}
-		return result;
+		return currentFunction.result;
 	}
 }
