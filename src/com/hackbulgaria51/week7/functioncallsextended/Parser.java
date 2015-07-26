@@ -26,6 +26,7 @@ public class Parser {
 		int argument = sc.nextInt();
 		for (int i = 0; i < functions.size(); i++) {
 			functionsCollection.add(new Function(functions.get(i), argument));
+			//calculate every function
 			functionsCollection.get(i).calculateFunction();
 		}
 		// send composition to Function class

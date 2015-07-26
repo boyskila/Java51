@@ -17,27 +17,33 @@ public class Function {
 
 	Function(String expression, int argument) {
 		tempFunction = expression.split("=");
+		// get all created functions
 		func = Parser.functionsCollection;
 		this.argument = argument;
-		function = expression.replaceAll("x", argument + "").split("=");
+		function = expression.split("=");
+		// get function name
 		String[] n = function[0].split(" ");
 		name = n[0];
 	}
 
-	private int calculateInnerFunction(String str) {
+	private int calculateInnerFunction(String argument) {
 		for (Function function : func) {
-			if (str.contains(function.name)) {
-				str = str.replaceAll("\\D+", "");
-				function.argument = Integer.parseInt(str);
+			// if "argument" is a function than calculate it using
+			// calculateFunction() method
+			if (argument.contains(function.name)) {
+				argument = argument.replaceAll("\\D+", "");
+				function.argument = Integer.parseInt(argument);
 				function.calculateFunction();
 				return function.result;
 			}
 		}
-		return Integer.parseInt(str);
+		// if "argument" is a number just return it back
+		return Integer.parseInt(argument);
 	}
 
 	public int calculateFunction() {
 		function = tempFunction;
+		// split body and replace "X" with the argument
 		String[] functionBody = function[1].replaceAll("x", argument + "")
 				.split(" ");
 		for (int i = 1; i < functionBody.length; i++) {
@@ -64,23 +70,23 @@ public class Function {
 				Function currentFunction = func.get(i);
 				if (currentFunction.name.contains(functionName)) {
 					if (counter > 0) {
+						// calculate function everytime with the newest argument
 						currentFunction.argument = currentFunctionArgument;
-						// calculate function everytime with the new argument
-						currentFunctionArgument = currentFunction.calculateFunction();
+						currentFunctionArgument = currentFunction
+								.calculateFunction();
 						result = currentFunction.result;
 						break;
 					} else {
-						// pass result from the first choosen function
+						// program entered here just once
+						// and pass the result from the first choosen function
+						// this will be the first argument
 						currentFunctionArgument = currentFunction.result;
+						break;
 					}
 				}
 			}
 			counter++;
 		}
 		return result;
-	}
-
-	public String toString() {
-		return name;
 	}
 }
