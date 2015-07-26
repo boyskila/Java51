@@ -6,7 +6,6 @@ import java.util.Vector;
 public class Function {
 	private String name;
 	private String[] function;
-	private String[] tempFunction;
 	private int argument;
 	private int result;
 	private Vector<Function> func;
@@ -16,7 +15,6 @@ public class Function {
 	}
 
 	Function(String expression, int argument) {
-		tempFunction = expression.split("=");
 		// get all created functions
 		func = Parser.functionsCollection;
 		this.argument = argument;
@@ -31,7 +29,7 @@ public class Function {
 			// if "argument" is a function than calculate it using
 			// calculateFunction() method
 			if (argument.contains(function.name)) {
-				argument = argument.replaceAll("\\D+", "");
+				argument = argument.replaceAll("\\D+", "");// extract the digit
 				function.argument = Integer.parseInt(argument);
 				function.calculateFunction();
 				return function.result;
@@ -42,10 +40,10 @@ public class Function {
 	}
 
 	public int calculateFunction() {
-		function = tempFunction;
 		// split body and replace "X" with the argument
 		String[] functionBody = function[1].replaceAll("x", argument + "")
 				.split(" ");
+		// calculate the body
 		for (int i = 1; i < functionBody.length; i++) {
 			String index = functionBody[i];
 			if (!index.equals("+") && !index.equals("-")) {
@@ -68,6 +66,7 @@ public class Function {
 			String functionName = stack.pop();
 			for (int i = 0; i < size; i++) {
 				Function currentFunction = func.get(i);
+				// try to find the function
 				if (currentFunction.name.contains(functionName)) {
 					if (counter > 0) {
 						// calculate function everytime with the newest argument
@@ -77,9 +76,11 @@ public class Function {
 						result = currentFunction.result;
 						break;
 					} else {
-						// program entered here just once
-						// and pass the result from the first choosen function
-						// this will be the first argument
+						/*
+						 * program entered here just once and pass the result
+						 * from the first choosen function.This will be the
+						 * first argument
+						 */
 						currentFunctionArgument = currentFunction.result;
 						break;
 					}
