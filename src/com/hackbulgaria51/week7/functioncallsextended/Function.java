@@ -40,17 +40,19 @@ public class Function {
 	}
 
 	public int calculateFunction() {
-		// split body and replace "X" with the argument
+		// split the body and replace all "X" with the argument
 		String[] functionBody = function[1].replaceAll("x", argument + "")
 				.split(" ");
 		// calculate the body
 		for (int i = 1; i < functionBody.length; i++) {
-			String index = functionBody[i];
-			if (!index.equals("+") && !index.equals("-")) {
-				result = calculateInnerFunction(index);
+			String numberBefore = functionBody[i];
+			if (!numberBefore.equals("+") && !numberBefore.equals("-")) {
+				result = calculateInnerFunction(numberBefore);
 			} else {
-				int number = calculateInnerFunction(functionBody[i + 1]);
-				result = index.equals("+") ? result + number : result - number;
+				// number after the sign
+				int numberAfter = calculateInnerFunction(functionBody[i + 1]);
+				result = numberBefore.equals("+") ? result + numberAfter
+						: result - numberAfter;
 				i++;
 			}
 		}
@@ -66,11 +68,11 @@ public class Function {
 			String functionName = stack.pop();
 			for (int i = 0; i < size; i++) {
 				Function currentFunction = func.get(i);
-				// try to find the function
+				// trying to find the function
 				if (currentFunction.name.contains(functionName)) {
 					if (counter > 0) {
-						// calculate function everytime with the newest argument
 						currentFunction.argument = currentFunctionArgument;
+						// calculate function everytime with the newest argument
 						currentFunctionArgument = currentFunction
 								.calculateFunction();
 						result = currentFunction.result;
@@ -78,8 +80,8 @@ public class Function {
 					} else {
 						/*
 						 * program entered here just once and pass the result
-						 * from the first choosen function.This will be the
-						 * first argument
+						 * from the first choosen function as argument.This will
+						 * be the first argument
 						 */
 						currentFunctionArgument = currentFunction.result;
 						break;

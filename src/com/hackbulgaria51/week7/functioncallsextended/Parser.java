@@ -5,7 +5,6 @@ import java.util.Stack;
 import java.util.Vector;
 
 public class Parser {
-
 	public static Vector<Function> functionsCollection = new Vector<>();
 
 	public static void main(String[] args) {
@@ -26,7 +25,7 @@ public class Parser {
 		int argument = sc.nextInt();
 		for (int i = 0; i < functions.size(); i++) {
 			functionsCollection.add(new Function(functions.get(i), argument));
-			//calculate every function
+			// calculate every function
 			functionsCollection.get(i).calculateFunction();
 		}
 		// send composition to Function class
