@@ -45,17 +45,17 @@ public class Function {
 		String[] functionBody = function[1].replaceAll("x", argument + "")
 				.split(" ");
 		// calculate the body
-		for (int i = 1; i < functionBody.length; i++) {
-			String valueBefore = functionBody[i];
+		for (int index = 1; index < functionBody.length; index++) {
+			String valueBefore = functionBody[index];
 			if (!valueBefore.equals("+") && !valueBefore.equals("-")) {
 				// get value before the sign
 				result = calculateValue(valueBefore);
 			} else {
 				// get value after the sign
-				int valueAfter = calculateValue(functionBody[i + 1]);
-				result = valueBefore.equals("+") ? result + valueAfter
-						: result - valueAfter;
-				i++;
+				int valueAfter = calculateValue(functionBody[index + 1]);
+				result = valueBefore.equals("+") ? result + valueAfter : result
+						- valueAfter;
+				index++;
 			}
 		}
 		return result;
@@ -67,8 +67,8 @@ public class Function {
 		Function currentFunction = null;
 		while (!stack.isEmpty()) {
 			String functionName = stack.pop();
-			for (int i = 0; i < size; i++) {
-				currentFunction = allFunctions.get(i);
+			for (int index = 0; index < size; index++) {
+				currentFunction = allFunctions.get(index);
 				// give argument to the currentFunction
 				currentFunction.argument = currentFunctionArgument;
 				if (currentFunction.name.contains(functionName)) {
