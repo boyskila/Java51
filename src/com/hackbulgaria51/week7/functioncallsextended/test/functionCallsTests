@@ -14,7 +14,7 @@ hack x = dev(2) + sin(x)
 dev . cos . sin . hack
 22
 result 584;
-
+explanation
 hack(22) = dev(2)= [cos(2) = sin(5) =  10 + sin(2) = 4] + [sin(22) = 44] = 58 + 10 ->hack return 68
 sin(68) = [68 + 68]->sin return 136
 cos(136) = [sin(5) + sin(136)= 10 + 272] cos return 282
@@ -26,7 +26,6 @@ sin x = x + 22
 cos x = sin(x) + sin(x)
 sin . cos
 10
-
 result 86;
 
 2
@@ -34,7 +33,6 @@ sin x = x + 22
 cos x = sin(x) + sin(2)
 sin . cos
 10
-
 result 78;
 
 2
@@ -42,7 +40,6 @@ sin x = x + 22
 cos x = sin(x) + sin(x)
 cos . sin
 10
-
 result 108;
 
 
@@ -51,7 +48,7 @@ sin x = x + x + x - 12
 cos x = sin(5) + 12 + sin(x) + 8
 cos . sin
 10
-
+explanation
 sin = 18 -> cos(18) [sin(5) = 3 + 12 + sin(18) = 42 + 8]
 result 65;
 
@@ -60,7 +57,18 @@ sin x = x + x + x - 12
 cos x = sin(5) + 12 + sin(x) + 8
 sin . cos
 10
-
+explanation
 cos = 3 + 12 + 18 + 8 = 41 -> sin(41) = 41 + 41 + 41 - 12 = 111
 result 111;
 
+3
+sin x = x + x + 10
+cos x = x + 22 + sin(x)
+hack x = cos(x)
+hack . sin . cos
+9
+explanation
+cos = 9 + 22 + [sin = 9 + 9 + 10] = 31 + 28 = 59
+sin(59) = 59 + 59 + 10 = 128
+hack(128) = [cos(128) = 128 + 22 +[sin(128) = 128 + 128 + 10]] = [150 + 266 ] = 416
+result 416;

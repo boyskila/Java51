@@ -10,10 +10,9 @@ public class Parser {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int numberOfFunctions = Integer.parseInt(sc.nextLine());
-		Vector<String> functions = new Vector<>();
 		for (int i = 0; i < numberOfFunctions; i++) {
 			String function = sc.nextLine();
-			functions.add(function);
+			functionsCollection.add(new Function(function));
 		}
 		Stack<String> stack = new Stack<>();
 		// put composition in stack
@@ -21,15 +20,9 @@ public class Parser {
 		for (int i = 0; i < composition.length; i++) {
 			stack.push(composition[i]);
 		}
-		// build and calculate functions from passed string and argument
-		int argument = sc.nextInt();
-		for (int i = 0; i < functions.size(); i++) {
-			functionsCollection.add(new Function(functions.get(i), argument));
-			// calculate every function
-			functionsCollection.get(i).calculateFunction();
-		}
+		int argument = Integer.parseInt(sc.nextLine());
 		// send composition to Function class
-		System.out.println(new Function().call(stack));
+		System.out.println(new Function(argument).functionCalls(stack));
 		sc.close();
 	}
 }

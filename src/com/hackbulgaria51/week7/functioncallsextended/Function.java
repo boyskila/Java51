@@ -10,21 +10,24 @@ public class Function {
 	private int result;
 	private Vector<Function> allFunctions;
 
-	Function() {
+	Function(int argument) {
+		this.argument = argument;
 		allFunctions = Parser.functionsCollection;
 	}
 
-	Function(String expression, int argument) {
+	Function(String expression) {
 		// get all created functions
 		allFunctions = Parser.functionsCollection;
-		this.argument = argument;
 		function = expression.split("=");
 		// get function name
 		String[] n = function[0].split(" ");
 		name = n[0];
 	}
 
-	private int calculateInnerFunction(String argument) {
+	private int calculateValue(String argument) {
+		if (argument.matches("[0-9]+")) {
+			return Integer.parseInt(argument);
+		}
 		for (Function function : allFunctions) {
 			// if "argument" is a function than calculate it using
 			// calculateFunction() method
@@ -35,59 +38,45 @@ public class Function {
 				return function.result;
 			}
 		}
-		// if "argument" is a number just return it back
 		return Integer.parseInt(argument);
 	}
 
 	public int calculateFunction() {
-		// split the body and replace all "X" with the argument
 		String[] functionBody = function[1].replaceAll("x", argument + "")
 				.split(" ");
 		// calculate the body
 		for (int i = 1; i < functionBody.length; i++) {
-			String numberBefore = functionBody[i];
-			if (!numberBefore.equals("+") && !numberBefore.equals("-")) {
-				result = calculateInnerFunction(numberBefore);
+			String valueBefore = functionBody[i];
+			if (!valueBefore.equals("+") && !valueBefore.equals("-")) {
+				// get value before the sign
+				result = calculateValue(valueBefore);
 			} else {
-				// number after the sign
-				int numberAfter = calculateInnerFunction(functionBody[i + 1]);
-				result = numberBefore.equals("+") ? result + numberAfter
-						: result - numberAfter;
+				// get value after the sign
+				int valueAfter = calculateValue(functionBody[i + 1]);
+				result = valueBefore.equals("+") ? result + valueAfter
+						: result - valueAfter;
 				i++;
 			}
 		}
 		return result;
 	}
 
-	public int call(Stack<String> stack) {
+	public int functionCalls(Stack<String> stack) {
 		int size = allFunctions.size();
-		int currentFunctionArgument = 0;
-		int counter = 0;
+		int currentFunctionArgument = argument;
 		Function currentFunction = null;
 		while (!stack.isEmpty()) {
 			String functionName = stack.pop();
 			for (int i = 0; i < size; i++) {
 				currentFunction = allFunctions.get(i);
-				// trying to find the function
+				// give argument to the currentFunction
+				currentFunction.argument = currentFunctionArgument;
 				if (currentFunction.name.contains(functionName)) {
-					if (counter > 0) {
-						currentFunction.argument = currentFunctionArgument;
-						// calculate function everytime with the newest argument
-						currentFunctionArgument = currentFunction
-								.calculateFunction();
-						break;
-					} else {
-						/*
-						 * program entered here just once and pass the result
-						 * from the first choosen function as argument.This will
-						 * be the first argument
-						 */
-						currentFunctionArgument = currentFunction.result;
-						break;
-					}
+					currentFunctionArgument = currentFunction
+							.calculateFunction();
+					break;
 				}
 			}
-			counter++;
 		}
 		return currentFunction.result;
 	}
