@@ -1,22 +1,17 @@
 package com.hackbulgaria51.week7.functioncallsextendedvariant;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Stack;
+import java.util.Scanner;
 
 public class Function {
-	private String[] function;
+	private static Map<String, Function> functionsCollection = new HashMap<>();
 	private int argument;
 	private int result;
-	private Map<String, Function> functionsCollection;;
-
-	Function(int argument) {
-		functionsCollection = Parser.functionsCollection;
-		this.argument = argument;
-	}
+	private String expression;
 
 	Function(String expression) {
-		functionsCollection = Parser.functionsCollection;
-		function = expression.split("=");
+		this.expression = expression;
 	}
 
 	private int calculateValue(String argument) {
@@ -25,38 +20,50 @@ public class Function {
 		}
 		String[] name = argument.split("\\(");
 		Function function = functionsCollection.get(name[0]);
-		argument = argument.replaceAll("\\D+", "");// extract the digit
+		// extract the digit between brackets -> example sin(5)
+		argument = argument.replaceAll("\\D+", "");
 		function.argument = Integer.parseInt(argument);
-		function.calculateFunction();
-		return function.result;
+		return function.calculateFunction();
 	}
 
 	public int calculateFunction() {
-		String[] functionBody = function[1].replaceAll("x", argument + "")
+		String[] functionBody = expression.replaceAll("x", argument + "")
 				.split(" ");
-		for (int index = 1; index < functionBody.length; index++) {
-			String valueBefore = functionBody[index];
-			if (!valueBefore.equals("+") && !valueBefore.equals("-")) {
-				result = calculateValue(valueBefore);
-			} else {
-				int valueAfter = calculateValue(functionBody[index + 1]);
-				result = valueBefore.equals("+") ? result + valueAfter : result
+		for (int index = 3; index < functionBody.length; index++) {
+			String value = functionBody[index];
+			if (value.equals("+") || value.equals("-")) {
+				int valueAfter = calculateValue(functionBody[++index]);
+				result = value.equals("+") ? result + valueAfter : result
 						- valueAfter;
-				index++;
+				continue;
 			}
+			result = calculateValue(value);
 		}
 		return result;
 	}
 
-	public int functionCalls(Stack<String> stack) {
-		int currentFunctionArgument = argument;
+	public static int functionCalls(String[] array, int argument) {
 		Function currentFunction = null;
-		while (!stack.isEmpty()) {
-			String functionName = stack.pop();
-			currentFunction = functionsCollection.get(functionName);
-			currentFunction.argument = currentFunctionArgument;
-			currentFunctionArgument = currentFunction.calculateFunction();
+		for (int i = array.length - 1; i >= 0; i--) {
+			currentFunction = functionsCollection.get(array[i]);
+			currentFunction.argument = argument;
+			argument = currentFunction.calculateFunction();
 		}
 		return currentFunction.result;
+	}
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int numberOfFunctions = Integer.parseInt(sc.nextLine());
+		for (int i = 0; i < numberOfFunctions; i++) {
+			String expression = sc.nextLine();
+			int index = expression.indexOf(' ');
+			String name = expression.substring(0, index);
+			functionsCollection.put(name, new Function(expression));
+		}
+		String[] composition = sc.nextLine().split(" . ");
+		int argument = sc.nextInt();
+		System.out.println(functionCalls(composition, argument));
+		sc.close();
 	}
 }
