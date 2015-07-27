@@ -20,7 +20,7 @@ public class Function {
 		}
 		String[] name = argument.split("\\(");
 		Function function = functionsCollection.get(name[0]);
-		// extract the digit between brackets -> example sin(5)
+		// extract the digit between brackets -> example sin(5) get 5
 		argument = argument.replaceAll("\\D+", "");
 		function.argument = Integer.parseInt(argument);
 		return function.calculateFunction();
