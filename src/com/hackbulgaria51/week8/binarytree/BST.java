@@ -1,4 +1,4 @@
-package com.hackbulgaria51.week8.treelevel;
+package com.hackbulgaria51.week8.binarytree;
 
 import java.util.LinkedList;
 import java.util.List;

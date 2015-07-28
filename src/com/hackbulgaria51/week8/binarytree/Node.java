@@ -1,4 +1,4 @@
-package com.hackbulgaria51.week8.treelevel;
+package com.hackbulgaria51.week8.binarytree;
 
 public class Node<T> {
 	public T data;
