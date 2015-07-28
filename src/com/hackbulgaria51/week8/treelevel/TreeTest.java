@@ -1,6 +1,6 @@
 package com.hackbulgaria51.week8.treelevel;
 
-public class TreeLevel {
+public class TreeTest {
 	public static void main(String[] args) {
 		BST<Integer> bst = new BST<>();
 		bst.add(15);
