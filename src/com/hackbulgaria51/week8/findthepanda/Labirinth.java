@@ -1,61 +1,88 @@
 package com.hackbulgaria51.week8.findthepanda;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 public class Labirinth {
-	private List<List<Node>> nodes;
-	private List<Node> lab;
+	private String[][] lab;
+	private List<Node> nodes;
+	Node[][] n;
 
-	public Labirinth() {
-		nodes = new ArrayList<>();
-		lab = new ArrayList<>();
+	public Labirinth(String[][] lab, int row, int col) {
+		nodes = new LinkedList<>();
+		this.lab = lab;
+		n = new Node[row][col];
 	}
 
-	public void createLabirinth(String input) {
-		List<Node> row = new ArrayList<>();
-		Node n;
-		for (int i = 0; i < input.length(); i++) {
-			if (i == 0 || i == input.length()) {
-				n = new Node(input.charAt(i), 0);
-			} else {
-				n = new Node(input.charAt(i), 1);
-			}
-			row.add(n);
-		}
-		nodes.add(row);
-	}
-
-	public boolean canLink(Node a, Node b) {
-		
-		return a.getSign() != '#' && a.getLinks().size() < 4
-				&& b.getSign() != '#' && b.getLinks().size() < 4;
-	}
-
-	//
-	public void linkNodes() {
-		int size = nodes.size();
-		for (int i = 1; i < size - 1; i++) {
-			for (int j = 0; j < nodes.get(i).size(); j++) {
-				Node prev = nodes.get(i - 1).get(j);
-				Node current = nodes.get(i).get(j);
-				if (canLink(prev, current)) {
-					prev.addLinks(current);
-					current.addLinks(prev);
+	public void makeLinks() {
+		for (int i = 0; i < lab.length; i++) {
+			for (int j = 0; j < lab[i].length; j++) {
+				Node node = new Node(new Pair(i, j), lab[i][j]);
+				if (!lab[i][j].equals("#")) {
+					node.addLink(checkRight(i, j));
+					node.addLink(checkDown(i, j));
+					node.addLink(checkUp(i, j));
+					node.addLink(checkLeft(i, j));
+					n[i][j] = node;
+					nodes.add(node);
 				}
-
 			}
 		}
 	}
 
-	public String toString() {
-		String s = "";
-		for (int i = 0; i < nodes.size(); i++) {
-			for (int j = 0; j < nodes.get(i).size(); j++) {
-				s += nodes.get(i).get(j);
+	private Node getStartPosition() {
+		for (Node node : nodes) {
+			if (node.getSign().equals("U")) {
+				return node;
 			}
-			s += "\n";
 		}
-		return s;
+		return null;
+	}
+
+	public boolean canFind() {
+		Stack<Pair> p = new Stack<>();
+		Node node = getStartPosition();
+		for (int i = 0; i < nodes.size(); i++) {
+			List<Pair> links = node.getLinks();
+			for (int j = 0; j < links.size(); j++) {
+				Pair pa = links.get(j);
+				Node nodi = n[pa.x][pa.y];
+				if (!nodi.isVisited()) {
+					p.add(links.get(j));
+				}
+			}
+			if (!p.isEmpty()) {
+				Pair pair = p.pop();
+				int x = pair.x;
+				int y = pair.y;
+				if (node.getSign().equals("P")) {
+					return true;
+				}
+				node.setVisited(true);
+				node = n[x][y];
+			} else {
+				return false;
+			}
+		}
+		return false;
+	}
+
+	private Pair checkRight(int x, int y) {
+		return y < lab[x].length - 1 && !lab[x][++y].equals("#") ? new Pair(x,
+				y) : null;
+	}
+
+	private Pair checkLeft(int x, int y) {
+		return y > 0 && !lab[x][--y].equals("#") ? new Pair(x, y) : null;
+	}
+
+	private Pair checkUp(int x, int y) {
+		return x > 0 && !lab[--x][y].equals("#") ? new Pair(x, y) : null;
+	}
+
+	private Pair checkDown(int x, int y) {
+		return x < lab.length - 1 && !lab[++x][y].equals("#") ? new Pair(x, y)
+				: null;
 	}
 }

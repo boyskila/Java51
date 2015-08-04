@@ -4,46 +4,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-	private char sign;
-	private List<Node> links;
-	private int position;
+	private List<Pair> links;
+	private Pair id;
+	private String sign;
+	private boolean visited;
 
-	public Node(char sign, int position) {
-		this.setSign(sign);
-		setLinks(new ArrayList<>());
-		this.setPosition(position);
+	public Node(Pair id, String sign) {
+		this.id = id;
+		this.sign = sign;
+		links = new ArrayList<>();
+		setVisited(false);
 	}
 
-	public String toString() {
-
-		return getSign() + "";
+	public void addLink(Pair node) {
+		if (node != null) {
+			getLinks().add(node);
+		}
 	}
 
-	public void addLinks(Node node) {
-		getLinks().add(node);
-	}
-
-	public char getSign() {
+	public String getSign() {
 		return sign;
 	}
 
-	public void setSign(char sign) {
-		this.sign = sign;
-	}
-
-	public List<Node> getLinks() {
+	public List<Pair> getLinks() {
 		return links;
 	}
 
-	public void setLinks(List<Node> links) {
-		this.links = links;
+	public boolean isVisited() {
+		return visited;
 	}
 
-	public int getPosition() {
-		return position;
-	}
-
-	public void setPosition(int position) {
-		this.position = position;
+	public void setVisited(boolean visited) {
+		this.visited = visited;
 	}
 }

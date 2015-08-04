@@ -5,14 +5,17 @@ import java.util.Scanner;
 public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		// int row = Integer.parseInt(sc.nextLine());
+		int row = Integer.parseInt(sc.nextLine());
 		int col = Integer.parseInt(sc.nextLine());
-		Labirinth l = new Labirinth();
-		for (int i = 0; i < col; i++) {
-			l.createLabirinth(sc.nextLine());
+		String[][] lab = new String[row][];
+		for (int i = 0; i < row; i++) {
+			String[] labs = sc.nextLine().split("");
+			lab[i] = labs;
 		}
-		 l.linkNodes();
-		System.out.println(l.toString());
+		Labirinth l = new Labirinth(lab, row, col);
+		l.makeLinks();
+		System.out.println(l.canFind());
+		sc.close();
 	}
 
 }
